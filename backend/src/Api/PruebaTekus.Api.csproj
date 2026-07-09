@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\PruebaTekus.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\PruebaTekus.Infrastructure.csproj" />
+    <ProjectReference Include="..\Domain\PruebaTekus.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

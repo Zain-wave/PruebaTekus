@@ -1,0 +1,6 @@
+@PruebaTekus.Api_HostAddress = http://localhost:5088
+
+GET {{PruebaTekus.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

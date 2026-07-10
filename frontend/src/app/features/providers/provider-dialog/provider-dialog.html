@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>{{ title() }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div mat-dialog-content class="content">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Company name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>NIT</mat-label>
+      <input matInput formControlName="nit" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="country">
+        @for (country of countries; track country) {
+          <mat-option [value]="country">{{ country }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Website</mat-label>
+      <input matInput formControlName="website" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+
+    <p class="info-note">ID is auto-generated and unique — assigned on save.</p>
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="saving()">Save provider</button>
+  </div>
+</form>

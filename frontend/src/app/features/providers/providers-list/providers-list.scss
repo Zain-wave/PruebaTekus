@@ -1,0 +1,31 @@
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font: var(--mat-sys-headline-medium);
+    color: var(--mat-sys-on-surface);
+  }
+
+  p {
+    margin: 4px 0 0;
+    font: var(--mat-sys-body-medium);
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.search-field {
+  width: 100%;
+  max-width: 360px;
+}
+
+.providers-table {
+  width: 100%;
+}
+
+.mono {
+  font-family: 'Roboto Mono', monospace;
+}

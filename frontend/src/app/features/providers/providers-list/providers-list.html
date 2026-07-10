@@ -1,0 +1,64 @@
+<header class="page-header">
+  <div>
+    <h1>Providers</h1>
+    <p>Companies that supply services to TEKUS</p>
+  </div>
+  <button mat-flat-button color="primary" type="button" (click)="openNew()">+ New provider</button>
+</header>
+
+<mat-form-field appearance="outline" class="search-field">
+  <mat-label>Search providers</mat-label>
+  <input matInput [formControl]="searchControl" />
+  <mat-icon matPrefix>search</mat-icon>
+</mat-form-field>
+
+<table mat-table [dataSource]="providers()" matSort (matSortChange)="onSort($event)" class="providers-table">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let provider" class="mono">{{ formatId(provider.id) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+    <td mat-cell *matCellDef="let provider">{{ provider.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nit">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>NIT</th>
+    <td mat-cell *matCellDef="let provider">{{ provider.nit }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+    <td mat-cell *matCellDef="let provider">{{ provider.email }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="website">
+    <th mat-header-cell *matHeaderCellDef>Website</th>
+    <td mat-cell *matCellDef="let provider">{{ provider.website }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="country">
+    <th mat-header-cell *matHeaderCellDef>Country</th>
+    <td mat-cell *matCellDef="let provider">{{ provider.country }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let provider">
+      <button mat-icon-button type="button" (click)="openEdit(provider)" aria-label="Edit provider">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  [length]="totalCount()"
+  [pageSize]="10"
+  [pageSizeOptions]="[10, 25, 50]"
+  (page)="onPage($event)"
+></mat-paginator>

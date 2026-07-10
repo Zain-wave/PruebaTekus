@@ -1,0 +1,47 @@
+<header class="page-header">
+  <h1>Overview</h1>
+  <p>Key indicators across all registered providers</p>
+</header>
+
+<div class="charts">
+  <section class="chart-card providers">
+    <h2>Providers by country</h2>
+    @for (row of providersByCountry(); track row.country) {
+      <div class="bar-row">
+        <span class="bar-label">{{ row.country }}</span>
+        <div class="bar-track">
+          <div class="bar-fill" [style.width.%]="row.pct"></div>
+        </div>
+        <span class="bar-count">{{ row.count }}</span>
+      </div>
+    }
+  </section>
+
+  <section class="chart-card services">
+    <h2>Services by country</h2>
+    @for (row of servicesByCountry(); track row.country) {
+      <div class="bar-row">
+        <span class="bar-label">{{ row.country }}</span>
+        <div class="bar-track">
+          <div class="bar-fill" [style.width.%]="row.pct"></div>
+        </div>
+        <span class="bar-count">{{ row.count }}</span>
+      </div>
+    }
+  </section>
+</div>
+
+<div class="stats">
+  <div class="stat-tile">
+    <span class="stat-label">Total providers</span>
+    <span class="stat-value">{{ totalProviders() }}</span>
+  </div>
+  <div class="stat-tile">
+    <span class="stat-label">Total services</span>
+    <span class="stat-value">{{ totalServices() }}</span>
+  </div>
+  <div class="stat-tile">
+    <span class="stat-label">Avg. value / hour</span>
+    <span class="stat-value">${{ averageHourlyRate() | number: '1.0-2' }}</span>
+  </div>
+</div>

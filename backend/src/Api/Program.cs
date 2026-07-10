@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using PruebaTekus.Api.Middleware;
 using PruebaTekus.Application;
 using PruebaTekus.Infrastructure;
 using PruebaTekus.Infrastructure.Persistence;
@@ -40,6 +41,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthorization();
 

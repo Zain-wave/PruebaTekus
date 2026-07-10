@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PruebaTekus.Application.Providers;
 using PruebaTekus.Infrastructure.Persistence;
 
 namespace PruebaTekus.Infrastructure;
@@ -11,6 +12,8 @@ public static class DependencyInjection
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddScoped<IProviderRepository, ProviderRepository>();
 
         return services;
     }

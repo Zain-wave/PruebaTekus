@@ -12,6 +12,7 @@ public static class ProviderMappingExtensions
             provider.Name,
             provider.Website,
             provider.Email,
+            provider.Country,
             provider.Services.Count);
     }
 }

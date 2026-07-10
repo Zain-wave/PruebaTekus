@@ -11,7 +11,7 @@ public class UpdateProviderCommandHandler(IProviderRepository repository) : IReq
         var provider = await repository.GetByIdAsync(request.Id, cancellationToken)
             ?? throw new NotFoundException(nameof(Provider), request.Id);
 
-        provider.Update(request.Name, request.Website, request.Email);
+        provider.Update(request.Name, request.Website, request.Email, request.Country);
 
         await repository.UpdateAsync(provider, cancellationToken);
     }

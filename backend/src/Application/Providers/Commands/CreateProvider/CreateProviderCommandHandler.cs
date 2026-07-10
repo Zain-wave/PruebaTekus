@@ -13,7 +13,7 @@ public class CreateProviderCommandHandler(IProviderRepository repository) : IReq
             throw new ConflictException($"A provider with Nit '{request.Nit}' already exists.");
         }
 
-        var provider = new Provider(request.Nit, request.Name, request.Website, request.Email);
+        var provider = new Provider(request.Nit, request.Name, request.Website, request.Email, request.Country);
 
         await repository.AddAsync(provider, cancellationToken);
 

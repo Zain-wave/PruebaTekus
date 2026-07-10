@@ -31,4 +31,20 @@ public class Service
         ProviderId = providerId;
         Provider = null!;
     }
+
+    public void Update(string name, decimal hourlyRate)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException("Name is required.", nameof(name));
+        }
+
+        if (hourlyRate < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(hourlyRate), "HourlyRate cannot be negative.");
+        }
+
+        Name = name;
+        HourlyRate = hourlyRate;
+    }
 }

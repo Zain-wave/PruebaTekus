@@ -1,0 +1,35 @@
+<mat-toolbar class="toolbar">
+  <div class="brand">
+    <img class="brand-logo" src="branding/tekus-logo.png" alt="TEKUS" />
+    <span class="brand-title">TEKUS | {{ screenTitle() }}</span>
+  </div>
+
+  <span class="spacer"></span>
+
+  <div class="user">
+    <div class="avatar">A</div>
+    <div class="user-info">
+      <span class="user-name">Admin</span>
+      <span class="user-email">admin&#64;tekus.com</span>
+    </div>
+    <button class="sign-out" type="button" (click)="signOut()">
+      <mat-icon>logout</mat-icon>
+      Sign out
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="shell-body">
+  <nav class="nav-rail">
+    @for (item of navItems; track item.path) {
+      <a class="nav-item" [routerLink]="item.path" routerLinkActive="active">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

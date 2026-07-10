@@ -9,7 +9,9 @@ public class ProviderRepository(AppDbContext context) : IProviderRepository
 {
     public Task<Provider?> GetByIdAsync(int id, CancellationToken cancellationToken)
     {
-        return context.Providers.FirstOrDefaultAsync(provider => provider.Id == id, cancellationToken);
+        return context.Providers
+            .Include(provider => provider.Services)
+            .FirstOrDefaultAsync(provider => provider.Id == id, cancellationToken);
     }
 
     public Task<bool> ExistsByNitAsync(string nit, int? excludeId, CancellationToken cancellationToken)

@@ -13,17 +13,25 @@ public class DashboardRepository(AppDbContext context) : IDashboardRepository
             ? 0m
             : await context.Services.AverageAsync(service => service.HourlyRate, cancellationToken);
 
-        var providersByCountry = await context.Providers
+        var providersByCountryRaw = await context.Providers
             .GroupBy(provider => provider.Country)
-            .Select(group => new CountByCountryDto(group.Key, group.Count()))
+            .Select(group => new { Country = group.Key, Count = group.Count() })
             .OrderByDescending(item => item.Count)
             .ToListAsync(cancellationToken);
 
-        var servicesByCountry = await context.Services
+        var servicesByCountryRaw = await context.Services
             .GroupBy(service => service.Provider.Country)
-            .Select(group => new CountByCountryDto(group.Key, group.Count()))
+            .Select(group => new { Country = group.Key, Count = group.Count() })
             .OrderByDescending(item => item.Count)
             .ToListAsync(cancellationToken);
+
+        var providersByCountry = providersByCountryRaw
+            .Select(item => new CountByCountryDto(item.Country, item.Count))
+            .ToList();
+
+        var servicesByCountry = servicesByCountryRaw
+            .Select(item => new CountByCountryDto(item.Country, item.Count))
+            .ToList();
 
         return new DashboardSummaryDto(
             totalProviders,

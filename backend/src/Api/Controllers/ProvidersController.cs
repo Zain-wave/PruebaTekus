@@ -1,7 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PruebaTekus.Application.Common;
+using PruebaTekus.Application.Providers;
 using PruebaTekus.Application.Providers.Commands.CreateProvider;
 using PruebaTekus.Application.Providers.Commands.UpdateProvider;
+using PruebaTekus.Application.Providers.Queries.GetProviderById;
+using PruebaTekus.Application.Providers.Queries.GetProvidersList;
 
 namespace PruebaTekus.Api.Controllers;
 
@@ -9,6 +13,37 @@ namespace PruebaTekus.Api.Controllers;
 [Route("api/[controller]")]
 public class ProvidersController(ISender sender) : ControllerBase
 {
+    /// <summary>
+    /// Gets a paged, searchable and sortable list of providers.
+    /// </summary>
+    /// <param name="query">Pagination, search and sort parameters.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    [HttpGet]
+    [ProducesResponseType(typeof(PagedResult<ProviderDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<PagedResult<ProviderDto>>> GetList(
+        [FromQuery] GetProvidersListQuery query,
+        CancellationToken cancellationToken)
+    {
+        var result = await sender.Send(query, cancellationToken);
+
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Gets a provider by its identifier.
+    /// </summary>
+    /// <param name="id">Provider identifier.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    [HttpGet("{id:int}")]
+    [ProducesResponseType(typeof(ProviderDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<ProviderDto>> GetById(int id, CancellationToken cancellationToken)
+    {
+        var provider = await sender.Send(new GetProviderByIdQuery(id), cancellationToken);
+
+        return provider is null ? NotFound() : Ok(provider);
+    }
+
     /// <summary>
     /// Creates a new provider.
     /// </summary>
@@ -22,7 +57,7 @@ public class ProvidersController(ISender sender) : ControllerBase
     {
         var id = await sender.Send(command, cancellationToken);
 
-        return StatusCode(StatusCodes.Status201Created, id);
+        return CreatedAtAction(nameof(GetById), new { id }, id);
     }
 
     /// <summary>

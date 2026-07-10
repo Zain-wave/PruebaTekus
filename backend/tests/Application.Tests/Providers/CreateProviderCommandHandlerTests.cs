@@ -12,7 +12,7 @@ public class CreateProviderCommandHandlerTests
     {
         var repository = new FakeProviderRepository();
         var handler = new CreateProviderCommandHandler(repository);
-        var command = new CreateProviderCommand("900123456", "Acme", "https://acme.test", "contact@acme.test");
+        var command = new CreateProviderCommand("900123456", "Acme", "https://acme.test", "contact@acme.test", "Colombia");
 
         var id = await handler.Handle(command, CancellationToken.None);
 
@@ -25,9 +25,9 @@ public class CreateProviderCommandHandlerTests
     public async Task Handle_WithExistingNit_ThrowsConflictException()
     {
         var repository = new FakeProviderRepository();
-        repository.Seed(new Provider("900123456", "Acme", "https://acme.test", "contact@acme.test"));
+        repository.Seed(new Provider("900123456", "Acme", "https://acme.test", "contact@acme.test", "Colombia"));
         var handler = new CreateProviderCommandHandler(repository);
-        var command = new CreateProviderCommand("900123456", "Other", "https://other.test", "info@other.test");
+        var command = new CreateProviderCommand("900123456", "Other", "https://other.test", "info@other.test", "Colombia");
 
         await Assert.ThrowsAsync<ConflictException>(() => handler.Handle(command, CancellationToken.None));
     }

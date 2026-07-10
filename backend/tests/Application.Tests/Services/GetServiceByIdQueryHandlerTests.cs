@@ -10,7 +10,7 @@ public class GetServiceByIdQueryHandlerTests
     public async Task Handle_WithExistingService_ReturnsDto()
     {
         var repository = new FakeServiceRepository();
-        var provider = new Provider("900123456", "Acme", "https://acme.test", "contact@acme.test");
+        var provider = new Provider("900123456", "Acme", "https://acme.test", "contact@acme.test", "Colombia");
         EntityTestHelper.SetProperty(provider, nameof(Provider.Id), 1);
         var service = new Service("Consulting", 100m, provider.Id);
         EntityTestHelper.SetProperty(service, nameof(Service.Id), 5);

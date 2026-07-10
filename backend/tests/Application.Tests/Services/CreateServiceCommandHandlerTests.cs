@@ -14,7 +14,7 @@ public class CreateServiceCommandHandlerTests
     {
         var serviceRepository = new FakeServiceRepository();
         var providerRepository = new FakeProviderRepository();
-        var provider = new Provider("900123456", "Acme", "https://acme.test", "contact@acme.test");
+        var provider = new Provider("900123456", "Acme", "https://acme.test", "contact@acme.test", "Colombia");
         EntityTestHelper.SetProperty(provider, nameof(Provider.Id), 1);
         providerRepository.Seed(provider);
         var emailSender = new FakeEmailSender();
@@ -37,7 +37,7 @@ public class CreateServiceCommandHandlerTests
     {
         var serviceRepository = new FakeServiceRepository();
         var providerRepository = new FakeProviderRepository();
-        var provider = new Provider("900123456", "Acme", "https://acme.test", "contact@acme.test");
+        var provider = new Provider("900123456", "Acme", "https://acme.test", "contact@acme.test", "Colombia");
         EntityTestHelper.SetProperty(provider, nameof(Provider.Id), 1);
         providerRepository.Seed(provider);
         var emailSender = new FakeEmailSender();

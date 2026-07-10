@@ -1,0 +1,51 @@
+<header class="page-header">
+  <div>
+    <h1>Services</h1>
+    <p>Offered by the selected provider</p>
+  </div>
+  <button mat-flat-button color="primary" type="button" [disabled]="!selectedProvider()" (click)="openNew()">
+    + New service
+  </button>
+</header>
+
+<mat-form-field appearance="outline" class="provider-field">
+  <mat-label>Provider</mat-label>
+  <mat-select [formControl]="providerControl">
+    @for (provider of providers(); track provider.id) {
+      <mat-option [value]="provider.id">{{ provider.name }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+@if (filteredServices().length > 0) {
+  <table mat-table [dataSource]="filteredServices()" matSort (matSortChange)="onSort($event)" class="services-table">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let service" class="mono">{{ formatId(service.id) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let service">{{ service.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="hourlyRate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="hourlyrate">$ / hour</th>
+      <td mat-cell *matCellDef="let service">${{ service.hourlyRate }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let service">
+        <button mat-icon-button type="button" (click)="openEdit(service)" aria-label="Edit service">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+} @else {
+  <p class="empty-state">This provider has no services yet.</p>
+}

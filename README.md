@@ -13,6 +13,7 @@ Levanta SQL Server, backend (migra la DB solo al arrancar) y frontend en un solo
 - Frontend: `http://localhost:4200`
 - Backend + Swagger: `http://localhost:8080/swagger`
 - SQL Server: `localhost:1433` (user `sa`, password default `YourStrong@Passw0rd`, override con `MSSQL_SA_PASSWORD`)
+- smtp4dev (bandeja de correos de prueba): `http://localhost:5000` — ahí llegan los correos de notificación de nuevo servicio en vez de salir a internet
 
 ## Backend (.NET)
 

@@ -17,6 +17,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(provider => provider.Name).IsRequired().HasMaxLength(200);
             entity.Property(provider => provider.Website).HasMaxLength(200);
             entity.Property(provider => provider.Email).IsRequired().HasMaxLength(200);
+            entity.Property(provider => provider.Country).IsRequired().HasMaxLength(100);
             entity.HasIndex(provider => provider.Nit).IsUnique();
 
             entity.HasMany(provider => provider.Services)

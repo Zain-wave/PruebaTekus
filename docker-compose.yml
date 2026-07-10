@@ -14,6 +14,12 @@ services:
       timeout: 5s
       retries: 10
 
+  smtp4dev:
+    image: rnwood/smtp4dev:v3
+    ports:
+      - "5000:80"
+      - "2525:25"
+
   backend:
     build:
       context: ./backend
@@ -21,11 +27,18 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=PruebaTekus;User Id=sa;Password=${MSSQL_SA_PASSWORD:-YourStrong@Passw0rd};TrustServerCertificate=True;"
+      Smtp__Host: smtp4dev
+      Smtp__Port: "25"
+      Smtp__From: "noreply@pruebatekus.local"
+      Smtp__UseSsl: "false"
+      Notifications__NewServiceNotificationEmail: "reviewer@pruebatekus.local"
     ports:
       - "8080:8080"
     depends_on:
       sqlserver:
         condition: service_healthy
+      smtp4dev:
+        condition: service_started
 
   frontend:
     build:

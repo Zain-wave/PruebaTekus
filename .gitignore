@@ -3,6 +3,8 @@
 [Oo]bj/
 *.user
 *.suo
+appsettings.Development.json
+appsettings.*.local.json
 
 # Angular / Node (frontend/ has its own .gitignore too)
 node_modules/
